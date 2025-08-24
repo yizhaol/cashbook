@@ -1,5 +1,5 @@
 #FROM node:20-alpine3.21 AS builder
-FROM hub-mirror.c.163.com/library/node:20-alpine3.21 AS builder
+FROM docker.mirrors.ustc.edu.cn/library/node:20-alpine3.21 AS builder
 WORKDIR /app
 
 COPY package*.json ./
