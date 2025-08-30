@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  cashbook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cashbook
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    environment:
+      # 数据库连接配置,替换成自己的
+      DATABASE_URL: "mysql://cashbook:Cashbook_1683@127.0.0.1:3306/cashbook"
+
+      # 应用配置
+      NUXT_APP_VERSION: "4.3.4"
+      NUXT_DATA_PATH: "/app/data"
+      NUXT_AUTH_SECRET: "auth123"
+      NUXT_ADMIN_USERNAME: "admin"
+      NUXT_ADMIN_PASSWORD: "fb35e9343a1c095ce1c1d1eb6973dc570953159441c3ee315ecfefb6ed05f4cc"
+
+      PORT: "9090"
+
+    volumes:
+      - ./data:/app/data
+      - ./prisma:/app/prisma
+    # entrypoint 脚本会在 Dockerfile 中 COPY 进容器
+    entrypoint: ["/app/entrypoint.sh"]
